@@ -38,10 +38,10 @@ const onQuickSortAnimation = () => {
       setTimeout(() => {
         // timeout para a finalizar o processo
         if (visualization.length -1 === i || visualization[i + 1].pivot !== pivot){
-          pivotDiv.style.background = 'grey'
+          pivotDiv.style.background = 'black'
         }
 
-        comparisonBar.style.background = 'grey'
+        comparisonBar.style.background = 'black'
 
         if (visualization.length - 1 === i) {
           for ( let e in sorting) {
@@ -59,7 +59,7 @@ const onQuickSortAnimation = () => {
 
   return (
     <>
-      <button onClick={onQuickSortAnimation}>test</button>
+      <button className="btn btn-primary" onClick={onQuickSortAnimation}>test</button>
     </>
   )
 }

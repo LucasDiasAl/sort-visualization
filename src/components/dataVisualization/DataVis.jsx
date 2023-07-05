@@ -5,7 +5,7 @@ import QuickSortAnimation from '../animations/QuickSort'
 
 function DataVis() {
   const SPEED = 10
-  const DATA_SIZE = 100
+  const DATA_SIZE = 500
   const [dataArray, setDataArray] = useState([])
 
   
@@ -23,18 +23,23 @@ function DataVis() {
   }, [])
 
   return (
-    <section className='data-visualizer'>
-      <>
-      <QuickSortAnimation SPEED={SPEED} dataArray={dataArray} setDataArray={setDataArray}/>
-      {
-        dataArray.map(({height, originIndex}) => (
-          <div
-          className={`data-bars bar-index-${originIndex}`}
-          style={{height: `${height}px`}}
-          key={originIndex}></div>
-          ))
-        }
-      </>
+    <section className='d-flex flex-column mb-3'>
+      <header className='d-flex flex-column align-items-center'>
+        <>
+          <p>Algoritimos de sort</p>
+        </>
+        <QuickSortAnimation SPEED={SPEED} dataArray={dataArray} setDataArray={setDataArray}/>
+      </header>
+      <section className='d-flex flex-row justify-content-md-evenly align-items-end mx-5'>
+        {
+          dataArray.map(({height, originIndex}) => (
+            <div
+            className={`data-bars bar-index-${originIndex}`}
+            style={{height: `${height}px`}}
+            key={originIndex}></div>
+            ))
+          }
+      </section>
     </section>
   )
 }

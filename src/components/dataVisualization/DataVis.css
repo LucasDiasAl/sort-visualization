@@ -1,14 +1,5 @@
-.data-visualizer {
-  display: flex;
-  flex-direction: row;
-  width: 90vw;
-  height: 80vh;
-  margin: auto;
-  align-items: flex-end;
-  justify-content: space-evenly;
-}
-
 .data-bars {
   width: 2px;
-  background-color: grey;
+  background-color: black;
+  margin-right: 1px;
 }
