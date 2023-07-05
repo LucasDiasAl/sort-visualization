@@ -10,6 +10,5 @@
 
 .data-bars {
   width: 2px;
-  background-color: blue;
-  margin: 0.5px;
+  background-color: grey;
 }
