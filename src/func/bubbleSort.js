@@ -15,5 +15,5 @@ export default function bubbleSort(data) {
       }
     }
   }
-  return {dataToSort, visualization};
+  return {sorting: dataToSort , visualization};
 }

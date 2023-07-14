@@ -1,64 +1,100 @@
-import { useState, useEffect } from 'react'
-import './DataVis.css'
+import { useState, useEffect } from "react";
+import "./DataVis.css";
 
-import QuickSortAnimation from '../animations/QuickSort'
-import BubbleSortAnimation from '../animations/BubbleSort'
+import quickSortAnimation from "../../animations/QuickSort";
+import bubbleSortAnimation from "../../animations/BubbleSort";
+
+import MenuButtons from "../Buttons/MenuButtons";
 
 function DataVis() {
-  const SPEED = 10
-  const DATA_SIZE = 200
-  const [dataArray, setDataArray] = useState([])
-  const [selectedSort, setSelectedSort] = useState('QuickSort')
+  const SPEED = 1;
+  const DATA_SIZE = 200;
+  const [unsortedData, setUnsortedData] = useState([]);
+  const [dataArray, setDataArray] = useState([]);
+  const [selectedSort, setSelectedSort] = useState("QuickSort");
+  const [timeOutsArray, setTimeOutsArray] = useState([]);
 
-  const OnSortClick = () => {
+  const onClickSort = () => {
+    const sortBtn = document.querySelector("#sort-btn");
+    const newDataBtn = document.querySelector("#create-new-data-btn");
+    sortBtn.disabled = true;
+    newDataBtn.disabled = true;
     const sortsAlgorithms = {
-      'QuickSort': () => {QuickSortAnimation(dataArray, SPEED, setDataArray)},
-      'BubbleSort': () => {BubbleSortAnimation(dataArray, SPEED, setDataArray)},
-    }
-    const sortFunc = sortsAlgorithms[selectedSort]
-    sortFunc()
-  }
+      QuickSort: () => quickSortAnimation(dataArray, SPEED, setDataArray),
+      BubbleSort: () => bubbleSortAnimation(dataArray, SPEED, setDataArray),
+    };
+    const sortFunc = sortsAlgorithms[selectedSort];
+    const timeOutsCreated = sortFunc();
+    setTimeOutsArray([...timeOutsCreated]);
+  };
 
-  const onChangeSort = ({ target: { value } }) => {
-    setSelectedSort(value)
-  }
+  const onSortChange = ({ target: { value } }) => {
+    const oldSelected = document.querySelector(".active");
+    oldSelected.classList.remove("active");
+    const sortSelected = document.getElementById(value);
+    sortSelected.classList.add("active");
+    setSelectedSort(value);
+  };
+
+  const onReset = () => {
+    for (let i of timeOutsArray) {
+      clearTimeout(i);
+    }
+    setDataArray([...unsortedData]);
+    const bars = document.querySelectorAll(".data-bars");
+    for (let bar of bars) {
+      bar.style.backgroundColor = "grey";
+    }
+  };
+
+  const createNewData = () => {
+    createDataArray();
+    const bars = document.querySelectorAll(".data-bars");
+    for (let bar of bars) {
+      bar.style.backgroundColor = "grey";
+    }
+  };
 
   const createDataArray = () => {
-    const randomData = []
-    for(let i = 0; i < DATA_SIZE; i += 1) {
+    const randomData = [];
+    for (let i = 0; i < DATA_SIZE; i += 1) {
       const randomInt = Math.floor(Math.random() * 491) + 10;
-      randomData.push({height: randomInt, originIndex: i})
+      randomData.push({ height: randomInt, originIndex: i });
     }
-    setDataArray(randomData);
-  }
+    setDataArray([...randomData]);
+    setUnsortedData([...randomData]);
+  };
+
   useEffect(() => {
     createDataArray();
-  }, [])
+  }, []);
 
   return (
-    <section className='d-flex flex-column mb-3'>
-      <header className='d-flex flex-column align-items-center'>
+    <section className="d-flex flex-column mb-3">
+      <header className="d-flex flex-column align-items-center">
         <>
-          <p>Algoritimos de sort</p>
+          <p>ALGORITIMOS DE ORDENAÇÃO</p>
         </>
-        <button className="btn btn-primary" value='QuickSort'onClick={onChangeSort}>Quick Sort</button>
-        <button className="btn btn-primary" value='BubbleSort' onClick={onChangeSort}>Bubble Sort</button>
-
-        <button className="btn btn-primary" onClick={OnSortClick}>Sort</button>
-        {/* <QuickSortAnimation SPEED={SPEED} dataArray={dataArray} setDataArray={setDataArray}/> */}
+        <MenuButtons
+          onSortChange={onSortChange}
+          onClickSort={onClickSort}
+          createNewData={createNewData}
+          onReset={onReset}
+        />
       </header>
-      <section className='d-flex flex-row justify-content-md-evenly align-items-end mx-5'>
-        {
-          dataArray.map(({height, originIndex}) => (
-            <div
+      <section className="d-flex flex-row justify-content-md-evenly align-items-end mx-5">
+        {dataArray.map(({ height, originIndex }) => (
+          <div
             className={`data-bars bar-index-${originIndex}`}
-            style={{height: `${height}px`}}
-            key={originIndex}></div>
-            ))
-          }
+            style={{ height: `${height}px` }}
+            key={originIndex}
+          ></div>
+        ))}
       </section>
     </section>
-  )
+  );
 }
 
-export default DataVis
+export default DataVis;
+
+// IMPLEMENTAR CONTEXTO GLOBAR E CRIAR UM NOVO COMPONENTE PARA OS BUTOES QUE MUDAM O ALGORITIMO
