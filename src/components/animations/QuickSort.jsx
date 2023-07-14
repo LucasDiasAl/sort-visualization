@@ -1,10 +1,7 @@
 import quickSort from '../../func/quickSort'
 
-import PropTypes from 'prop-types'
+function QuickSortAnimation(dataArray, SPEED, setDataArray) {
 
-function QuickSortAnimation({dataArray, SPEED, setDataArray}) {
-
-const onQuickSortAnimation = () => {
   const {sorting, visualization} = quickSort({sorting: dataArray, visualization: []})
   for( let i = 0; i < visualization.length; i++) {
 
@@ -56,18 +53,5 @@ const onQuickSortAnimation = () => {
     }, i * SPEED)
   }
 }
-
-  return (
-    <>
-      <button className="btn btn-primary" onClick={onQuickSortAnimation}>test</button>
-    </>
-  )
-}
-
-QuickSortAnimation.propTypes = {
-  SPEED: PropTypes.number.isRequired,
-  dataArray: PropTypes.array.isRequired,
-  setDataArray: PropTypes.func.isRequired,
-};
 
 export default QuickSortAnimation
