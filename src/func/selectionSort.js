@@ -19,4 +19,3 @@ const selectionSort = (data) => {
 }
 
 export default selectionSort
-console.log(selectionSort([2,6,8,3,5,7,2,3,5,3,4543,45,233,43,2,1,3,5,66,5,234,753,57,2,56,753,4567,34,6]));
