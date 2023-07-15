@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import "./DataVis.css";
 
-import quickSortAnimation from "../../animations/QuickSort";
-import bubbleSortAnimation from "../../animations/BubbleSort";
+import quickSortAnimation from "../../animations/quickSort";
+import bubbleSortAnimation from "../../animations/bubbleSort";
+import selectionSortAnimation from "../../animations/selectionSort";
 
 import MenuButtons from "../Buttons/MenuButtons";
 
 function DataVis() {
-  const SPEED = 1;
-  const DATA_SIZE = 200;
+  const SPEED = 100;
+  const DATA_SIZE = 50;
   const [unsortedData, setUnsortedData] = useState([]);
   const [dataArray, setDataArray] = useState([]);
   const [selectedSort, setSelectedSort] = useState("QuickSort");
@@ -22,6 +23,8 @@ function DataVis() {
     const sortsAlgorithms = {
       QuickSort: () => quickSortAnimation(dataArray, SPEED, setDataArray),
       BubbleSort: () => bubbleSortAnimation(dataArray, SPEED, setDataArray),
+      SelectionSort: () =>
+        selectionSortAnimation(dataArray, SPEED, setDataArray),
     };
     const sortFunc = sortsAlgorithms[selectedSort];
     const timeOutsCreated = sortFunc();
@@ -45,6 +48,10 @@ function DataVis() {
     for (let bar of bars) {
       bar.style.backgroundColor = "grey";
     }
+    const sortBtn = document.querySelector("#sort-btn");
+    const newDataBtn = document.querySelector("#create-new-data-btn");
+    sortBtn.disabled = false;
+    newDataBtn.disabled = false;
   };
 
   const createNewData = () => {

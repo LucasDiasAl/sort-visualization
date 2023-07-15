@@ -32,6 +32,14 @@ function MenuButtons({ onSortChange, onClickSort, createNewData, onReset }) {
         >
           Bubble Sort
         </button>
+        <button
+          className="btn btn-primary m-2"
+          id="SelectionSort"
+          value="SelectionSort"
+          onClick={onSortChange}
+        >
+          Selection Sort
+        </button>
       </div>
       <div className="d-flex justify-content-center">
         <button className="btn btn-primary" id="sort-btn" onClick={onClickSort}>
