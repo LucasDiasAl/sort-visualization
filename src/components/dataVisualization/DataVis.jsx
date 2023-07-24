@@ -8,8 +8,8 @@ import selectionSortAnimation from "../../animations/selectionSort";
 import MenuButtons from "../Buttons/MenuButtons";
 
 function DataVis() {
-  const SPEED = 100;
-  const DATA_SIZE = 50;
+  const SPEED = 2000;
+  const DATA_SIZE = 10;
   const [unsortedData, setUnsortedData] = useState([]);
   const [dataArray, setDataArray] = useState([]);
   const [selectedSort, setSelectedSort] = useState("QuickSort");
@@ -66,7 +66,7 @@ function DataVis() {
     const randomData = [];
     for (let i = 0; i < DATA_SIZE; i += 1) {
       const randomInt = Math.floor(Math.random() * 491) + 10;
-      randomData.push({ height: randomInt, originIndex: i });
+        randomData.push({ height: randomInt, originIndex: i });
     }
     setDataArray([...randomData]);
     setUnsortedData([...randomData]);

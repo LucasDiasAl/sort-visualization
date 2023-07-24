@@ -6,31 +6,29 @@ function quickSortAnimation(dataArray, SPEED, setDataArray) {
     visualization: [],
   });
   const timeOuts = [];
-  for (let i = 0; i < visualization.length; i++) {
-    const { pivot, bar, direction } = visualization[i];
-
+  visualization.forEach(({ pivot, bar, direction }, i) => {
     const pivotDiv = document.querySelector(`.bar-index-${pivot.originIndex}`);
-
+  
     const comparisonBar = document.querySelector(
       `.bar-index-${bar.originIndex}`
     );
-
+  
     const timeOut = setTimeout(() => {
       // timeout para a animaçao da comparacao
       if (i === 0 || visualization[i - 1].pivot !== pivot) {
         pivotDiv.style.background = "yellow";
       }
-
+  
       comparisonBar.style.background = "blue";
-
+  
       setTimeout(() => {
         // timeout para movimentaçao
         const currPivotIndex = dataArray.indexOf(pivot);
-
-        const barToCompIndex = dataArray.indexOf(bar);
-
+  
+        const barToCompareIndex = dataArray.indexOf(bar);
+  
         if (direction === -1) {
-          dataArray.splice(barToCompIndex, 1);
+          dataArray.splice(barToCompareIndex, 1);
           dataArray.splice(currPivotIndex, 0, bar);
           setDataArray([...dataArray]);
         }
@@ -42,18 +40,16 @@ function quickSortAnimation(dataArray, SPEED, setDataArray) {
           ) {
             pivotDiv.style.background = "grey";
           }
-
+  
           comparisonBar.style.background = "grey";
-
+  
           if (visualization.length - 1 === i) {
-            for (let e in sorting) {
+            sorting.forEach((_, index2) => {
               const bar = document.querySelector(
-                `.bar-index-${dataArray[e].originIndex}`
+                `.bar-index-${dataArray[index2].originIndex}`
               );
-
               bar.style.background = "green";
-              // console.log(sorting[e] === dataArray[e]) ---> PARA TESTES APENAS
-            }
+            });
             const newDataBtn = document.querySelector("#create-new-data-btn");
             newDataBtn.disabled = false;
             // console.log(sorting.length === dataArray.length) --> PARA TESTES APENAS
@@ -62,7 +58,7 @@ function quickSortAnimation(dataArray, SPEED, setDataArray) {
       }, SPEED / 3);
     }, i * SPEED);
     timeOuts.push(timeOut);
-  }
+  });
   return timeOuts;
 }
 

@@ -3,48 +3,44 @@ import bubbleSort from "../func/bubbleSort";
 function bubbleSortAnimation(dataArray, SPEED, setDataArray) {
   const { visualization, sorting } = bubbleSort(dataArray);
   const timeOuts = [];
-  for (let i in visualization) {
-    const frame = visualization[i];
-    const bar1 = document.querySelector(`.bar-index-${frame.bar1.originIndex}`);
-    const bar2 = document.querySelector(`.bar-index-${frame.bar2.originIndex}`);
+  visualization.forEach(({bar1, bar2, swap}, i) => {
+    const pivot = document.querySelector(`.bar-index-${bar1.originIndex}`);
+    const comparingBar = document.querySelector(`.bar-index-${bar2.originIndex}`);
     const timeOut = setTimeout(() => {
-      bar1.style.background = "yellow";
-      bar2.style.background = "blue";
+      pivot.style.background = "yellow";
+      comparingBar.style.background = "blue";
       setTimeout(() => {
-        if (frame.swap > 0) {
-          const bar1Index = dataArray.indexOf(frame.bar1);
-          const bar2Index = dataArray.indexOf(frame.bar2);
-          dataArray[bar1Index] = frame.bar2;
-          dataArray[bar2Index] = frame.bar1;
+        if (swap === 1) {
+          const bar1Index = dataArray.indexOf(bar1);
+          const bar2Index = dataArray.indexOf(bar2);
+          [dataArray[bar1Index], dataArray[bar2Index]] = [
+            dataArray[bar2Index], dataArray[bar1Index]
+          ]
           setDataArray([...dataArray]);
         }
         setTimeout(() => {
-          bar2.style.background = "grey";
-          if (Number(i) == visualization.length - 1) {
-            for (let e in sorting) {
+          comparingBar.style.background = "grey";
+          if (i === visualization.length - 1) {
+            sorting.forEach((_, index2) => {
               const bar = document.querySelector(
-                `.bar-index-${dataArray[e].originIndex}`
+                `.bar-index-${dataArray[index2].originIndex}`
               );
               bar.style.background = "green";
-              // console.log(sorting[e] === dataArray[e]) ---> PARA TESTES APENAS
-            }
-
+            })
             const newDataBtn = document.querySelector("#create-new-data-btn");
             newDataBtn.disabled = false;
-            // console.log(sorting.length === dataArray.length) --> PARA TESTES APENAS
-          } else if (frame.bar2 === visualization[Number(i) + 1].bar1) {
-            // PARA QUANDO FOR HAVER UM TROCA DE PIVO(BARRA PRINCIPAL) USADO NA COMPARACAO
-            bar1.style.background = "grey";
-            bar2.style.background = "yellow";
-          } else if (frame.bar1 !== visualization[Number(i) + 1].bar1) {
-            bar1.style.background = "grey";
+          } else if (bar2 === visualization[i + 1].bar1) {
+            pivot.style.background = "grey";
+            comparingBar.style.background = "yellow";
+          } else if (bar1 !== visualization[i + 1].bar1) {
+            pivot.style.background = "grey";
           }
         }, SPEED / 1.5);
       }, SPEED / 3);
     }, SPEED * i);
     timeOuts.push(timeOut);
-  }
-  return timeOuts;
+  })
+  return timeOuts
 }
 
 export default bubbleSortAnimation;
