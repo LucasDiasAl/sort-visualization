@@ -10,10 +10,10 @@ export default function quickSort(data) {
   for (let i = 1; i < data.sorting.length; i++) {
     if (data.sorting[i].height < pivot.height) {
       left.push(data.sorting[i]);
-      vis.push({pivot: pivot, bar: data.sorting[i], direction: -1 })
+      vis.push({pivot: pivot, bar: data.sorting[i], direction: -1 });
     } else {
       right.push(data.sorting[i]);
-      vis.push({pivot: pivot, bar: data.sorting[i], direction: 1 })
+      vis.push({pivot: pivot, bar: data.sorting[i], direction: 1 });
     }
   }
   const leftOrder = quickSort({sorting: left, visualization: []});
@@ -21,7 +21,7 @@ export default function quickSort(data) {
   return {
     sorting: [...leftOrder.sorting, pivot, ...rightOrder.sorting],
     visualization: [...vis, ...leftOrder.visualization,...rightOrder.visualization ]
-  }
+  };
 }
 
 // transformar em array de objetos para conseguir guardar o tamanho e a posiçao original para referencia.

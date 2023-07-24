@@ -1,13 +1,8 @@
-import DataVis from './components/dataVisualization/DataVis'
-import 'bootstrap/dist/css/bootstrap.css';
+import DataVis from "./components/dataVisualization/DataVis";
+import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
-
-  return (
-    <main>
-      <DataVis/>
-    </main>
-  )
+  return <DataVis />;
 }
 
-export default App
+export default App;
