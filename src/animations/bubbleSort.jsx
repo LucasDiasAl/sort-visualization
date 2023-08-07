@@ -35,8 +35,8 @@ function bubbleSortAnimation(dataArray, SPEED, setDataArray) {
           } else if (bar1 !== visualization[i + 1].bar1) {
             pivot.style.background = "grey";
           }
-        }, SPEED / 1.5);
-      }, SPEED / 3);
+        }, SPEED * ( 1 / 5 ));
+      }, SPEED * (3 / 5));
     }, SPEED * i);
     timeOuts.push(timeOut);
   })

@@ -52,10 +52,9 @@ function quickSortAnimation(dataArray, SPEED, setDataArray) {
             });
             const newDataBtn = document.querySelector("#create-new-data-btn");
             newDataBtn.disabled = false;
-            // console.log(sorting.length === dataArray.length) --> PARA TESTES APENAS
           }
-        }, SPEED / 1.5);
-      }, SPEED / 3);
+        }, SPEED * ( 1 / 5 ));
+      }, SPEED * (3 / 5));
     }, i * SPEED);
     timeOuts.push(timeOut);
   });
