@@ -4,12 +4,13 @@ import "./DataVis.css";
 import quickSortAnimation from "../../animations/quickSort";
 import bubbleSortAnimation from "../../animations/bubbleSort";
 import selectionSortAnimation from "../../animations/selectionSort";
+import mergeSortAnimation from "../../animations/mergeSort";
 
 import MenuButtons from "../Buttons/MenuButtons";
 
 function DataVis() {
-  const SPEED = 2000;
-  const DATA_SIZE = 10;
+  const SPEED = 10;
+  const DATA_SIZE = 100;
   const [unsortedData, setUnsortedData] = useState([]);
   const [dataArray, setDataArray] = useState([]);
   const [selectedSort, setSelectedSort] = useState("QuickSort");
@@ -25,6 +26,7 @@ function DataVis() {
       BubbleSort: () => bubbleSortAnimation(dataArray, SPEED, setDataArray),
       SelectionSort: () =>
         selectionSortAnimation(dataArray, SPEED, setDataArray),
+      MergeSort: () => mergeSortAnimation(dataArray, SPEED, setDataArray)
     };
     const sortFunc = sortsAlgorithms[selectedSort];
     const timeOutsCreated = sortFunc();
@@ -60,6 +62,8 @@ function DataVis() {
     for (let bar of bars) {
       bar.style.backgroundColor = "grey";
     }
+    const sortBtn = document.querySelector("#sort-btn")
+    sortBtn.disabled = false;
   };
 
   const createDataArray = () => {

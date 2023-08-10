@@ -40,6 +40,14 @@ function MenuButtons({ onSortChange, onClickSort, createNewData, onReset }) {
         >
           Selection Sort
         </button>
+        <button
+          className="btn btn-primary m-2"
+          id="MergeSort"
+          value="MergeSort"
+          onClick={onSortChange}
+        >
+          Merge Sort
+        </button>
       </div>
       <div className="d-flex justify-content-center">
         <button className="btn btn-primary" id="sort-btn" onClick={onClickSort}>
