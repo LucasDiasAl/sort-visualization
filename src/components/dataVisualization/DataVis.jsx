@@ -1,109 +1,110 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import "./DataVis.css";
 
 import quickSortAnimation from "../../animations/quickSort";
 import bubbleSortAnimation from "../../animations/bubbleSort";
 import selectionSortAnimation from "../../animations/selectionSort";
 import mergeSortAnimation from "../../animations/mergeSort";
+import heapSortAnimation from "../../animations/heapSort.jsx";
 
 import MenuButtons from "../Buttons/MenuButtons";
 
 function DataVis() {
-  const SPEED = 10;
-  const DATA_SIZE = 100;
-  const [unsortedData, setUnsortedData] = useState([]);
-  const [dataArray, setDataArray] = useState([]);
-  const [selectedSort, setSelectedSort] = useState("QuickSort");
-  const [timeOutsArray, setTimeOutsArray] = useState([]);
+    const SPEED = 100;
+    const DATA_SIZE = 100;
+    const [unsortedData, setUnsortedData] = useState([]);
+    const [dataArray, setDataArray] = useState([]);
+    const [selectedSort, setSelectedSort] = useState("QuickSort");
+    const [timeOutsArray, setTimeOutsArray] = useState([]);
 
-  const onClickSort = () => {
-    const sortBtn = document.querySelector("#sort-btn");
-    const newDataBtn = document.querySelector("#create-new-data-btn");
-    sortBtn.disabled = true;
-    newDataBtn.disabled = true;
-    const sortsAlgorithms = {
-      QuickSort: () => quickSortAnimation(dataArray, SPEED, setDataArray),
-      BubbleSort: () => bubbleSortAnimation(dataArray, SPEED, setDataArray),
-      SelectionSort: () =>
-        selectionSortAnimation(dataArray, SPEED, setDataArray),
-      MergeSort: () => mergeSortAnimation(dataArray, SPEED, setDataArray)
+    const onClickSort = () => {
+        const sortBtn = document.querySelector("#sort-btn");
+        const newDataBtn = document.querySelector("#create-new-data-btn");
+        sortBtn.disabled = true;
+        newDataBtn.disabled = true;
+        const sortsAlgorithms = {
+            QuickSort: () => quickSortAnimation(dataArray, SPEED, setDataArray),
+            BubbleSort: () => bubbleSortAnimation(dataArray, SPEED, setDataArray),
+            SelectionSort: () => selectionSortAnimation(dataArray, SPEED, setDataArray),
+            MergeSort: () => mergeSortAnimation(dataArray, SPEED, setDataArray),
+            HeapSort: () => heapSortAnimation(dataArray, SPEED, setDataArray),
+        };
+        const sortFunc = sortsAlgorithms[selectedSort];
+        const timeOutsCreated = sortFunc();
+        setTimeOutsArray([...timeOutsCreated]);
     };
-    const sortFunc = sortsAlgorithms[selectedSort];
-    const timeOutsCreated = sortFunc();
-    setTimeOutsArray([...timeOutsCreated]);
-  };
 
-  const onSortChange = ({ target: { value } }) => {
-    const oldSelected = document.querySelector(".active");
-    oldSelected.classList.remove("active");
-    const sortSelected = document.getElementById(value);
-    sortSelected.classList.add("active");
-    setSelectedSort(value);
-  };
+    const onSortChange = ({target: {value}}) => {
+        const oldSelected = document.querySelector(".active");
+        oldSelected.classList.remove("active");
+        const sortSelected = document.getElementById(value);
+        sortSelected.classList.add("active");
+        setSelectedSort(value);
+    };
 
-  const onReset = () => {
-    for (let i of timeOutsArray) {
-      clearTimeout(i);
-    }
-    setDataArray([...unsortedData]);
-    const bars = document.querySelectorAll(".data-bars");
-    for (let bar of bars) {
-      bar.style.backgroundColor = "grey";
-    }
-    const sortBtn = document.querySelector("#sort-btn");
-    const newDataBtn = document.querySelector("#create-new-data-btn");
-    sortBtn.disabled = false;
-    newDataBtn.disabled = false;
-  };
+    const onReset = () => {
+        for (let i of timeOutsArray) {
+            clearTimeout(i);
+        }
+        setDataArray([...unsortedData]);
+        const bars = document.querySelectorAll(".data-bars");
+        for (let bar of bars) {
+            bar.style.backgroundColor = "grey";
+        }
+        const sortBtn = document.querySelector("#sort-btn");
+        const newDataBtn = document.querySelector("#create-new-data-btn");
+        sortBtn.disabled = false;
+        newDataBtn.disabled = false;
+    };
 
-  const createNewData = () => {
-    createDataArray();
-    const bars = document.querySelectorAll(".data-bars");
-    for (let bar of bars) {
-      bar.style.backgroundColor = "grey";
-    }
-    const sortBtn = document.querySelector("#sort-btn")
-    sortBtn.disabled = false;
-  };
+    const createNewData = () => {
+        createDataArray();
+        const bars = document.querySelectorAll(".data-bars");
+        for (let bar of bars) {
+            bar.style.backgroundColor = "grey";
+        }
+        const sortBtn = document.querySelector("#sort-btn")
+        sortBtn.disabled = false;
+    };
 
-  const createDataArray = () => {
-    const randomData = [];
-    for (let i = 0; i < DATA_SIZE; i += 1) {
-      const randomInt = Math.floor(Math.random() * 491) + 10;
-        randomData.push({ height: randomInt, originIndex: i });
-    }
-    setDataArray([...randomData]);
-    setUnsortedData([...randomData]);
-  };
+    const createDataArray = () => {
+        const randomData = [];
+        for (let i = 0; i < DATA_SIZE; i += 1) {
+            const randomInt = Math.floor(Math.random() * 491) + 10;
+            randomData.push({height: randomInt, originIndex: i});
+        }
+        setDataArray([...randomData]);
+        setUnsortedData([...randomData]);
+    };
 
-  useEffect(() => {
-    createDataArray();
-  }, []);
+    useEffect(() => {
+        createDataArray();
+    }, []);
 
-  return (
-    <section className="d-flex flex-column mb-3">
-      <header className="d-flex flex-column align-items-center">
-        <>
-          <p>ALGORITIMOS DE ORDENAÇÃO</p>
-        </>
-        <MenuButtons
-          onSortChange={onSortChange}
-          onClickSort={onClickSort}
-          createNewData={createNewData}
-          onReset={onReset}
-        />
-      </header>
-      <section className="d-flex flex-row justify-content-md-evenly align-items-end mx-5">
-        {dataArray.map(({ height, originIndex }) => (
-          <div
-            className={`data-bars bar-index-${originIndex}`}
-            style={{ height: `${height}px` }}
-            key={originIndex}
-          ></div>
-        ))}
-      </section>
-    </section>
-  );
+    return (
+        <section className="d-flex flex-column mb-3">
+            <header className="d-flex flex-column align-items-center">
+                <>
+                    <p>ALGORITIMOS DE ORDENAÇÃO</p>
+                </>
+                <MenuButtons
+                    onSortChange={onSortChange}
+                    onClickSort={onClickSort}
+                    createNewData={createNewData}
+                    onReset={onReset}
+                />
+            </header>
+            <section className="d-flex flex-row justify-content-md-evenly align-items-end mx-5">
+                {dataArray.map(({height, originIndex}) => (
+                    <div
+                        className={`data-bars bar-index-${originIndex}`}
+                        style={{height: `${height}px`}}
+                        key={originIndex}
+                    ></div>
+                ))}
+            </section>
+        </section>
+    );
 }
 
 export default DataVis;
