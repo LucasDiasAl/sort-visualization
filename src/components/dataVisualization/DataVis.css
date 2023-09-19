@@ -1,6 +1,36 @@
 .data-bars {
-  width: 10px;
-  background-color: grey;
-  /* margin-right: 1px; */
-  border: 1px solid black;
+    width: 7px;
+    background-color: #FCF5E5;
+    border: 1px solid black;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.titulo {
+    font-family: Roboto Mono, sans-serif;
+    font-size: 1.3em;
+    color: #FFF;
+    font-weight: bold;
+    text-align: center;
+}
+
+.bars-div::after {
+    position: fixed;
+    overflow: hidden;
+    content: "";
+    left: 15vh;
+    right: 15vh;
+    bottom: 5vh;
+    border-radius: 50px;
+    border-bottom: 5px solid #FCF5E5;
+}
+
+@media (max-width: 1740px) {
+    .data-bars {
+        width: 5px;
+        background-color: #FCF5E5;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        border: 1px solid black;
+    }
 }
