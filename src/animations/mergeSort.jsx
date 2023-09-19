@@ -1,7 +1,8 @@
 import mergeSort from "../func/mergeSort";
+import testAnimation from "../AnimationTest/animationTest.js";
 
 export default function mergeSortAnimation(dataArray, SPEED, setDataArray) {
-    const { sorting, visualization } = mergeSort([...dataArray]);
+    const {visualization} = mergeSort([...dataArray]);
     const timeOuts = [];
 
     visualization.forEach(({indexToPutIn, swapWith}, i) => {
@@ -20,17 +21,17 @@ export default function mergeSortAnimation(dataArray, SPEED, setDataArray) {
                 dataArray[swapWithIndex] = tmp;
                 setDataArray([...dataArray]);
                 setTimeout(() => {
-                    pivotIndex.style.background = "grey";
-                    firstBar.style.background = "grey";
+                    pivotIndex.style.background = "#FCF5E5";
+                    firstBar.style.background = "#FCF5E5";
                     if (i === visualization.length - 1) {
+                        testAnimation();
                         const newDataBtn = document.querySelector("#create-new-data-btn");
+                        const barsRange = document.querySelector("#numero-barras");
+                        const animationSpeedInput = document.querySelector("#velocidade-animação");
+                        animationSpeedInput.disabled = false;
+                        barsRange.disabled = false;
                         newDataBtn.disabled = false;
-                        sorting.forEach((_, index2) => {
-                          const bar = document.querySelector(
-                            `.bar-index-${dataArray[index2].originIndex}`
-                          );
-                          bar.style.background = "green";
-                        })}
+                    }
                 }, SPEED * (1 / 5))
             }, SPEED * (3 / 5))
         }, i * SPEED)

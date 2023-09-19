@@ -1,7 +1,8 @@
 import bubbleSort from "../func/bubbleSort";
+import testAnimation from "../AnimationTest/animationTest.js";
 
 function bubbleSortAnimation(dataArray, SPEED, setDataArray) {
-    const {visualization, sorting} = bubbleSort(dataArray);
+    const {visualization} = bubbleSort(dataArray);
     const timeOuts = [];
     visualization.forEach(({bar1, bar2, swap}, i) => {
         const pivot = document.querySelector(`.bar-index-${bar1.originIndex}`);
@@ -19,21 +20,20 @@ function bubbleSortAnimation(dataArray, SPEED, setDataArray) {
                     setDataArray([...dataArray]);
                 }
                 setTimeout(() => {
-                    comparingBar.style.background = "grey";
+                    comparingBar.style.background = "#FCF5E5";
                     if (i === visualization.length - 1) {
-                        sorting.forEach((_, index2) => {
-                            const bar = document.querySelector(
-                                `.bar-index-${dataArray[index2].originIndex}`
-                            );
-                            bar.style.background = "green";
-                        })
+                        testAnimation();
                         const newDataBtn = document.querySelector("#create-new-data-btn");
+                        const barsRange = document.querySelector("#numero-barras");
+                        const animationSpeedInput = document.querySelector("#velocidade-animação");
+                        animationSpeedInput.disabled = false;
+                        barsRange.disabled = false;
                         newDataBtn.disabled = false;
                     } else if (bar2 === visualization[i + 1].bar1) {
-                        pivot.style.background = "grey";
+                        pivot.style.background = "#FCF5E5";
                         comparingBar.style.background = "yellow";
                     } else if (bar1 !== visualization[i + 1].bar1) {
-                        pivot.style.background = "grey";
+                        pivot.style.background = "#FCF5E5";
                     }
                 }, SPEED * (1 / 5))
             }, SPEED * (3 / 5))

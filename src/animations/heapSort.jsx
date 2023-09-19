@@ -1,7 +1,8 @@
 import heapSort from "../func/heapSort.js";
+import animationTest from "../AnimationTest/animationTest.js";
 
 function heapSortAnimation(dataArray, SPEED, setDataArray) {
-    const {visualization, sorted} = heapSort(dataArray);
+    const {visualization} = heapSort(dataArray);
     const timeOuts = [];
 
     visualization.forEach(({pivot, comparingBar}, i) => {
@@ -19,16 +20,15 @@ function heapSortAnimation(dataArray, SPEED, setDataArray) {
                 setDataArray([...dataArray]);
 
                 setTimeout(() => {
-                    pivotElement.style.background = "grey";
-                    comparingBarElement.style.background = "grey";
+                    pivotElement.style.background = "#FCF5E5";
+                    comparingBarElement.style.background = "#FCF5E5";
                     if (i === visualization.length - 1) {
-                        sorted.forEach((_, index2) => {
-                            const bar = document.querySelector(
-                                `.bar-index-${dataArray[index2].originIndex}`
-                            );
-                            bar.style.background = "green";
-                        })
+                        animationTest();
                         const newDataBtn = document.querySelector("#create-new-data-btn");
+                        const barsRange = document.querySelector("#numero-barras");
+                        const animationSpeedInput = document.querySelector("#velocidade-animação");
+                        animationSpeedInput.disabled = false;
+                        barsRange.disabled = false;
                         newDataBtn.disabled = false;
                     }
                 }, SPEED * (1 / 5))
