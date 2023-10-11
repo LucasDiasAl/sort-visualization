@@ -107,7 +107,7 @@ function DataVis() {
                 />
             </header>
             <main>
-                <section className="d-flex align-items-end min bars-div">
+                <section className="d-flex align-items-end min bars-div" data-testid="bars-container">
                     {dataArray.map(({height, originIndex}) => (
                         <div
                             className={`data-bars bar-index-${originIndex}`}
